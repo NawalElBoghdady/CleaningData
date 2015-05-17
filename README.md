@@ -65,13 +65,16 @@ Follow the same procedure used to obtain the X_train data set, but this time use
 2. In the SQL query, you can specify that you want the output data frame (Xout) to be grouped by Subject, and Activity. That way, the mean of each Feature column can be obtained per Subject per Activity.
 3. Sort Xout by Activity, and then by Subject. The first few entries of this data frame are shown below:
 
-        ```{r, echo=FALSE}
-        #
-        library("data.table")
-        new_col_names = readLines(con = file("./Modified_ColNames2.txt", encoding = "UTF8"))
-        Out = read.table(file = "./Xout.txt", sep = ",", header = TRUE, fill = TRUE)
-        Out = setnames(Out, old = names(Out[3:length(Out)]), new = new_col_names)
-        Out[1:3,1:4]
+        
+        ```
+        ##   Subject Activity Mean Body Acceleration -X (Time Domain)
+        ## 1       1   LAYING                               0.2215982
+        ## 2       2   LAYING                               0.2813734
+        ## 3       3   LAYING                               0.2755169
+        ##   Mean Body Acceleration -Y (Time Domain)
+        ## 1                             -0.04051395
+        ## 2                             -0.01815874
+        ## 3                             -0.01895568
         ```
 
 4. Store that data frame in a text file (Xout.txt) using the write.table() function, with sep = "," and row.names = FALSE.
