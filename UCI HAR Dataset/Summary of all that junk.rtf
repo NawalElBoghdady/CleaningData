@@ -1,0 +1,108 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1344\cocoasubrtf720
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red235\green235\blue235;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 Subject_train: IDs of subjects who performed the task\
+X_train: the training data => collected from Subject_train for the tasks labeled in y_train\
+The numbers in y_train correspond to the labels in activity_labels.txt\
+\
+Same for testing\
+\
+==============================\
+\
+\
+The questions now are:\
+\
+1. What are the 561 instances of each entry in X_train? => correspond to the 561 features labeled in features.txt :D\
+ \
+The data in X correspond to the 561 feature vector for each feature labeled in features.txt\
+\
+2. What do the data in Inertial Signals correspond to then?\
+The features were probably obtained from the inertial signals: They are probably the row means (mean across each row for each subject, in the cases in which the mean was calculated)\
+\
+===========================\
+\
+So Now it depends what is required in the project: Do they also want to see all that raw data? If not, then the datasets would like sthg like this:\
+\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+						TRAINING				                           |\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+			|			|				|		|                          |\
+	Subj 		| 	Activity	|	FEATURE 1	|\'85\'85\'85\'85	| FEATURE 561 |\
+	ID		|	Name	|				|		|                          |\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+	1		     WALKING	   2.8858451e-001                      -5.8626924e-002\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+\
+\
+The same should be done for TEST.\
+\
+Then we need to get the data from the respective files as follows:\
+\
+I. TRAINING dataset:\
+=================\
+\
+1. Subj ID => subject_train\
+2. Activity => Use y_train.txt in conjunction with activity_labels.txt to translate the numbers into labels.\
+3. FEATURE Names => Use features.txt to extract the feature names and use them as column names\
+4. The data for filling up the FEATURE rows => from X_train.txt\
+\
+II. TEST dataset:\
+==============\
+\
+Same as TRAINING dataset, but with using the test folder instead.\
+\
+Then we can begin working:\
+\
+We need to merge those two datasets by Subject ID => from here we get duplicates in terms of the FEATURE columns. Can we use reshape to have the training data on top and the test on the bottom? Or should we have separate columns for training and test? E.g. TR-tBodyAcc-mean()-X and \
+TE-tBodyAcc-mean()-X?? Wouldn\'92t that be a bit too much? I would have it the long and skinny version, but the columns need to be renamed. Naming convention seems to be a problem now\'85\
+\
+\
+REQUIRMENTS:\
+==============\
+\
+\'93
+\f1\fs28 \cf2 \expnd0\expndtw0\kerning0
+You should create one R script called run_analysis.R that does the following.\'a0\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl420
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	1.	}\expnd0\expndtw0\kerning0
+Merges the training and the test sets to create one data set.\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	2.	}\expnd0\expndtw0\kerning0
+Extracts only the measurements on the mean and standard deviation for each measurement.\'a0\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	3.	}\expnd0\expndtw0\kerning0
+Uses descriptive activity names to name the activities in the data set\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	4.	}\expnd0\expndtw0\kerning0
+Appropriately labels the data set with descriptive variable\'a0names.\'a0\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl420\sa210
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	5.	}\expnd0\expndtw0\kerning0
+From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 \'94\
+\pard\tx566\pardeftab720\sl420\sa210
+\cf0 \
+GRADING PARTS:\
+==============\
+\pard\pardeftab720\sl420
+
+\f1\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+1. Please upload the tidy data set created in step 5 of the instructions. Please upload your data set as a txt file created with write.table() using row.name = FALSE (do not cut and paste a dataset directly into the text box, as this may cause errors saving your submission).\
+\
+2. Please submit a link to a Github repo with the code for performing your analysis. The code should have a file run_analysis.R in the main directory that can be run as long as the Samsung data is in your working directory. The output should be the tidy data set you submitted for part 1. You should include a README.md in the repo describing how the script works and the code book describing the variables.
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+\
+\
+\
+\
+\
+}
