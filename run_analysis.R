@@ -150,6 +150,7 @@
         #Rename each Feature to a more descriptive name instead of using a codename.
         #Descriptive Feature names are read from a custom-made text file:
         new_col_names = readLines(con = file("./Modified_ColNames2.txt", encoding = "UTF8"))
+        new_col_names = paste("AVG(", new_col_names, ")")
         Xout = setnames(Xout, old = names(Xout[3:length(Xout)]), new = new_col_names)
 
         #Display output:
